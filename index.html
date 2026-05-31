@@ -1,126 +1,279 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>왕이 될 상인가?</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <section class="scanner-panel" aria-label="실시간 관상 분석기">
-        <div class="scanner-stage" id="scannerStage">
-          <video id="video" class="camera-feed" autoplay playsinline muted></video>
-          <canvas id="overlay" class="overlay-canvas"></canvas>
-          <div class="alignment-guide" aria-hidden="true">
-            <span class="guide-corner top-left"></span>
-            <span class="guide-corner top-right"></span>
-            <span class="guide-corner bottom-left"></span>
-            <span class="guide-corner bottom-right"></span>
-            <span class="face-oval"></span>
-          </div>
-          <div class="shutter" id="shutter"></div>
-          <div class="royal-seal" aria-hidden="true">王</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>왕이 될 상인가? - AI 실시간 관상 감정 서비스</title>
+  <meta name="description" content="전통 관상학을 현대적인 AI 기술로 경험해 보세요. 얼굴의 미세한 균형과 기운을 분석하여 격조 높은 왕실 관상 감정서를 선사합니다.">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Traditional Lattice Overlay -->
+  <div class="traditional-backdrop"></div>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Header -->
+    <header class="royal-header">
+      <div class="emblem">👑</div>
+      <h1 class="logo-text">왕이 될 상인가?</h1>
+      <p class="subtitle">AI 觀相 鑑定所</p>
+    </header>
+
+    <!-- STEP 1: Welcome / Start Screen -->
+    <section id="welcome-screen" class="view-section active">
+      <div class="welcome-card">
+        <div class="ornament-top"></div>
+        <p class="welcome-intro">
+          천 년을 이어온 전통 관상학(觀相學)과<br>
+          현대 인공지능(AI) 얼굴 분석 기술의 조화.
+        </p>
+        <p class="welcome-description">
+          본 감정소는 사용자의 얼굴 윤곽과 오관(五官)의 조화를 측정하여 전통 해석을 제공합니다.<br>
+          왕실 관상가의 혜안으로 당신이 지닌 타고난 기운과 균형을 살펴보십시오.
+        </p>
+        
+        <div class="instruction-box">
+          <div class="instruction-title">감정 시작 전 안내</div>
+          <ul>
+            <li>원활한 인식을 위해 정면의 밝은 곳에서 촬영해 주세요.</li>
+            <li>카메라 권한 승인이 필요합니다.</li>
+            <li>안경이나 마스크는 잠시 벗어주시는 것이 좋습니다.</li>
+          </ul>
         </div>
 
-        <aside class="control-panel" aria-label="분석 상태">
-          <div class="brand-lockup">
-            <span class="eyebrow">Royal Physiognomy Scanner</span>
-            <h1>왕이 될 상인가?</h1>
-            <p>
-              전통 관상학의 상징을 실시간 얼굴 스캐너로 체험하는 문화 콘텐츠입니다.
+        <button id="btn-start" class="btn btn-gold">
+          <span class="btn-text">관상 감정 시작하기</span>
+          <span class="btn-deco"></span>
+        </button>
+
+        <footer class="disclaimer-text">
+          ※ 본 서비스는 학술·오락 목적으로 제공되며, 개인의 성품, 지능, 능력, 성공 여부를 단정하지 않습니다. 결과는 관상학 문화 콘텐츠 감상을 위해 참고용으로만 즐겨주시기 바랍니다.
+        </footer>
+        <div class="ornament-bottom"></div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Scanner / Camera View -->
+    <section id="scanner-screen" class="view-section">
+      <div class="scanner-container">
+        <div class="video-wrapper">
+          <video id="webcam" autoplay playsinline muted></video>
+          <canvas id="overlay-canvas"></canvas>
+          
+          <!-- Camera Error Overlay -->
+          <div id="camera-error-overlay" class="camera-error-overlay">
+            <div class="error-emblem">⚠️</div>
+            <div class="error-title">카메라 권한 필요</div>
+            <p class="error-msg" id="camera-error-msg">
+              관상 감정을 위해서는 카메라 접근 권한이 필요합니다.<br>
+              브라우저의 카메라 접근 권한을 허용해 주세요.
             </p>
+            <button id="btn-error-retry" class="btn btn-gold btn-sm">다시 시도</button>
           </div>
 
-          <div class="status-box" role="status" aria-live="polite">
-            <span class="status-dot" id="statusDot"></span>
-            <strong id="statusTitle">카메라 준비 중</strong>
-            <span id="statusText">브라우저의 카메라 접근을 허용해주세요.</span>
+          <div class="face-guide-frame">
+            <div class="face-guide-oval"></div>
+            <div class="guide-text">얼굴을 원 안에 맞춘 후 정면을 응시해 주세요</div>
           </div>
+        </div>
 
-          <div class="scan-meter" aria-label="분석 진행률">
-            <div class="scan-meter-fill" id="progressFill"></div>
+        <!-- Analyzer Status HUD -->
+        <div class="analyzer-panel">
+          <div class="current-step-title">대기 중...</div>
+          <div class="progress-bar-container">
+            <div class="progress-fill" id="scanner-progress"></div>
           </div>
+          <div class="scan-detail-msg" id="scan-message">
+            카메라와 관상 모형을 준비하고 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <ol class="step-list" id="stepList">
-            <li data-part="eyes" class="active"><span>눈</span><small>눈 길이 측정 중</small></li>
-            <li data-part="brows"><span>눈썹</span><small>눈썹 흐름 분석 중</small></li>
-            <li data-part="nose"><span>코</span><small>코 비율 계산 중</small></li>
-            <li data-part="mouth"><span>입</span><small>입 윤곽 대조 중</small></li>
-            <li data-part="jaw"><span>턱</span><small>턱선 안정도 확인 중</small></li>
-            <li data-part="forehead"><span>이마</span><small>이마 비례 판독 중</small></li>
-          </ol>
+    <!-- STEP 3: Shutter Effect -->
+    <div id="shutter-flash" class="shutter-flash"></div>
 
-          <button class="primary-action" id="startButton" type="button">
-            관상 감정 시작
-          </button>
+    <!-- STEP 4: Results View -->
+    <section id="result-screen" class="view-section">
+      <div class="result-scroll-wrapper">
+        
+        <!-- Premium Royal Scroll Card (SNS Share Target) -->
+        <div id="result-card" class="result-card">
+          <div class="royal-border"></div>
+          <div class="card-content">
+            <div class="stamp-deco">鑑定印</div>
+            
+            <header class="card-header">
+              <span class="card-crown">👑</span>
+              <h2 class="card-main-title">왕이 될 상인가?</h2>
+              <p class="card-subtitle">王室 觀相 鑑定書</p>
+            </header>
 
-          <div class="debug-panel">
-            <label class="debug-toggle">
-              <input id="debugToggle" type="checkbox" />
-              <span>디버그 모드</span>
-            </label>
-            <div class="debug-output" id="debugPanel" hidden>
-              <strong>측정 대기 중</strong>
-              <p>분석을 시작하면 얼굴 비율과 유형별 점수가 표시됩니다.</p>
+            <hr class="gold-divider-double">
+
+            <!-- Captured Face Frame -->
+            <div class="face-snapshot-container">
+              <div class="face-snapshot-frame">
+                <img id="snapshot-img" alt="관상 캡처" src="">
+                <div class="snapshot-overlay"></div>
+              </div>
+            </div>
+
+            <!-- Title & Combinations -->
+            <div class="analysis-section title-section">
+              <span class="section-label">최종 관상 격식</span>
+              <h3 id="result-title" class="matched-title">학자의 상</h3>
+              <div id="result-features-list" class="feature-tags">
+                <span class="tag">봉황안</span>
+                <span class="tag">용미</span>
+                <span class="tag">용골코</span>
+                <span class="tag">장군광대</span>
+                <span class="tag">장군턱</span>
+                <span class="tag">제왕이마</span>
+              </div>
+            </div>
+
+            <hr class="gold-divider-single">
+
+            <!-- Energy Scores -->
+            <div class="analysis-section energies-grid">
+              <div class="energy-column positive">
+                <span class="energy-title">조화로운 좋은 기운</span>
+                <ul id="positive-energies" class="energy-list">
+                  <!-- Generated Dynamically -->
+                </ul>
+              </div>
+              
+              <div class="energy-column warning">
+                <span class="energy-title">보완하면 이로운 기운</span>
+                <ul id="warning-energies" class="energy-list">
+                  <!-- Generated Dynamically -->
+                </ul>
+              </div>
+            </div>
+
+            <hr class="gold-divider-single">
+
+            <!-- Physiognomy Master review -->
+            <div class="analysis-section review-section">
+              <span class="section-label">관상가 총평 (鑑定評)</span>
+              <div class="review-box">
+                <p id="review-text" class="review-content">
+                  전통 관상학의 관점에서는 이마와 코의 조화가 두드러져 학술적 성취나 사회적 명예운이 높은 기운으로 해석되기도 합니다. 다만, 양 미간의 흐름과 눈썹의 끝부분이 완만하게 흘러 대인관계의 유연함이나 적극적인 추진력이 다소 약하게 나타날 수 있다고 해석하기도 하오니 이를 참고하시길 권합니다.
+                </p>
+                <div class="signature">왕실 관상 감정관 백</div>
+              </div>
+            </div>
+
+            <hr class="gold-divider-single">
+
+            <!-- Decision Rationale Detail -->
+            <div class="analysis-section details-section">
+              <span class="section-label">신체 부위별 분석 근거</span>
+              <ul id="metric-rationale-list" class="rationale-list">
+                <!-- Detailed metrics here -->
+              </ul>
+            </div>
+
+            <!-- Disclaimer inside card -->
+            <div class="card-fineprint">
+              본 감정서는 오관(눈, 눈썹, 코, 입, 광대, 턱, 이마)의 기하학적 대칭 및 비율 측정을 토대로 한국 전통 관상 문헌의 해석을 조합하여 생성되었습니다.
             </div>
           </div>
-        </aside>
-      </section>
+        </div>
 
-      <section class="analysis-grid" aria-label="부위별 관상 결과">
-        <article class="result-card placeholder" id="currentCard">
-          <span class="card-kicker">감정 대기</span>
-          <h2>얼굴을 정면으로 맞춰주세요</h2>
-          <p>
-            얼굴 인식이 완료되면 눈부터 이마까지 순서대로 관상 특징을 판독합니다.
+        <!-- Product Compensation Recommendation (Outside Scroll or Elegant separate section) -->
+        <div class="recommendation-card">
+          <div class="ornament-top"></div>
+          <span class="section-label accent">관상 보완 제안 (觀相 補完)</span>
+          <h4 id="reco-title" class="reco-title">부족한 대인운을 보완하기 위한 추천 제품</h4>
+          <p id="reco-explanation" class="reco-desc">
+            "전통 관상학에서는 눈썹의 흐름을 대인운과 연결하여 해석하기도 합니다. 맑고 단정한 눈썹결을 정돈하여 온화하면서도 곧은 대인운의 흐름을 이끌어내는 데 도움을 줄 수 있습니다."
           </p>
-        </article>
-        <div class="part-results" id="partResults"></div>
-      </section>
-
-      <section class="final-report hidden" id="finalReport" aria-label="최종 감정서">
-        <div class="report-media">
-          <img id="captureImage" alt="분석 완료 시점의 얼굴 캡처" />
-        </div>
-        <div class="report-content">
-          <span class="card-kicker">최종 감정서</span>
-          <h2 id="finalTitle">왕의 상</h2>
-          <div class="final-score" id="finalScore">종합 점수 0점</div>
-          <p id="finalSummary"></p>
-          <div class="judgement-reasons">
-            <h3 id="reasonTitle">판정 이유</h3>
-            <ul id="finalReasons"></ul>
+          
+          <div class="reco-product-showcase">
+            <img id="reco-image" src="assets/image1.png" alt="보완 추천 상품">
           </div>
-          <div class="feature-tags" id="featureTags"></div>
-          <section class="product-recommendations" id="productRecommendations" hidden>
-            <span class="card-kicker">관상 보완 제안</span>
-            <h3>부족한 기운을 보완하기 위한 추천 제품</h3>
-            <div class="recommendation-list" id="recommendationList"></div>
-          </section>
-          <div class="report-columns">
-            <div>
-              <h3>장점으로 해석될 수 있는 부분</h3>
-              <ul id="finalStrengths"></ul>
-            </div>
-            <div>
-              <h3>주의해서 비칠 수 있는 부분</h3>
-              <ul id="finalCautions"></ul>
-            </div>
+
+          <div class="reco-actions">
+            <a href="https://www.hermes.com" target="_blank" class="btn btn-outline" id="btn-view-product">제품 상세 보기</a>
+            <a href="https://www.rolex.com" target="_blank" class="btn btn-gold" id="btn-buy-product">보완 제품 구매하기</a>
           </div>
-          <button class="secondary-action" id="resetButton" type="button">다시 감정하기</button>
+          <div class="ornament-bottom"></div>
         </div>
-      </section>
 
-      <p class="disclaimer">
-        이 서비스는 실제 성격, 능력, 지능, 성공 여부를 판단하지 않습니다. 전통 관상학의 상징을 현대적인 인터랙션으로 재해석한 오락 및 문화 콘텐츠입니다.
-      </p>
-    </main>
+        <!-- Utility Actions -->
+        <div class="action-buttons-container">
+          <button id="btn-restart" class="btn btn-dark">감정 다시 받기</button>
+          <button id="btn-share" class="btn btn-gold-solid">감정서 저장 / SNS 공유</button>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
-    <script src="script.js"></script>
-  </body>
+        <p class="final-bottom-notes">
+          © 2026 AI 왕실 관상 감정원. All rights reserved.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- LOADING SPINNER (Overlays) -->
+    <div id="global-loader" class="loader-overlay">
+      <div class="loader-content">
+        <div class="spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-center">👑</div>
+        </div>
+        <div class="loader-title">왕실 관상가의 혜안을 여는 중</div>
+        <div class="loader-subtitle">AI Face Landmarker 모형을 전개하고 있습니다...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Module Script -->
+  <script type="module" src="script.js"></script>
+  <script>
+    setTimeout(() => {
+      if (!window.appLoaded) {
+        console.warn("Module script script.js failed to load. Checking protocol...");
+        if (window.location.protocol === 'file:') {
+          const warningDiv = document.createElement('div');
+          warningDiv.style.position = 'fixed';
+          warningDiv.style.bottom = '20px';
+          warningDiv.style.left = '50%';
+          warningDiv.style.transform = 'translateX(-50%)';
+          warningDiv.style.backgroundColor = '#2A241B';
+          warningDiv.style.color = '#F7F1E5';
+          warningDiv.style.border = '1px solid #B88A44';
+          warningDiv.style.padding = '18px 25px';
+          warningDiv.style.borderRadius = '4px';
+          warningDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.35)';
+          warningDiv.style.zIndex = '999999';
+          warningDiv.style.textAlign = 'center';
+          warningDiv.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          warningDiv.style.fontSize = '0.9rem';
+          warningDiv.style.lineHeight = '1.5';
+          warningDiv.style.width = '90%';
+          warningDiv.style.maxWidth = '500px';
+          warningDiv.innerHTML = `
+            <strong style="color: #B88A44; display: block; margin-bottom: 6px; font-size: 1rem;">⚠️ 로컬 파일(file://) 실행 보안 제한</strong>
+            브라우저 보안 정책(CORS)으로 인해 index.html을 더블클릭해서 열면 동작하지 않습니다.<br>
+            로컬 웹 서버(VS Code Live Server 등)로 열거나, GitHub Pages에 업로드하여 실행해 주시기 바랍니다.
+          `;
+          document.body.appendChild(warningDiv);
+        } else {
+          alert("스크립트(script.js)를 불러오지 못했습니다. 파일 경로를 확인해 주세요.");
+        }
+      }
+    }, 1200);
+  </script>
+</body>
 </html>

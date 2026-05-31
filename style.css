@@ -1,0 +1,1088 @@
+/* ==========================================================================
+   DESIGN SYSTEM & VARIABLES (Rolex / Hermès / Traditional Korean Luxury)
+   ========================================================================== */
+:root {
+  --color-bg-light: #F7F1E5;
+  --color-bg-warm: #F5EFE2;
+  --color-bg-paper: #EFE7D8;
+  --color-text-main: #2A241B;
+  --color-gold-light: #DFD3C3;
+  --color-gold: #B88A44;
+  --color-gold-hover: #9E7434;
+  --color-gold-glow: rgba(184, 138, 68, 0.4);
+  --color-dark: #1E1A14;
+  --color-white: #FFFFFF;
+  
+  --font-royal: 'Cinzel', serif;
+  --font-korean: 'Noto Serif KR', serif;
+  
+  --shadow-premium: 0 20px 40px rgba(42, 36, 27, 0.08);
+  --shadow-gold: 0 10px 30px rgba(184, 138, 68, 0.15);
+  
+  --border-gold: 1px solid #B88A44;
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-main);
+  font-family: var(--font-korean), serif;
+  line-height: 1.8;
+  letter-spacing: -0.02em;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Traditional Lattice Backdrop */
+.traditional-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: radial-gradient(var(--color-gold) 1.5px, transparent 1.5px),
+                    linear-gradient(to right, var(--color-gold) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--color-gold) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==========================================================================
+   MAIN CONTAINERS & LAYOUT
+   ========================================================================== */
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 80px 20px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.royal-header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.emblem {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  display: inline-block;
+  filter: drop-shadow(0 2px 4px rgba(184, 138, 68, 0.3));
+}
+
+.logo-text {
+  font-family: var(--font-royal), var(--font-korean);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-family: var(--font-royal), var(--font-korean);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   COMMON COMPONENT STYLES
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  font-family: var(--font-korean);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-gold {
+  background-color: var(--color-text-main);
+  color: var(--color-bg-warm);
+  border: 1px solid var(--color-gold);
+  box-shadow: var(--shadow-premium);
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-gold);
+  transform: scale(1.03, 1.08);
+  opacity: 0.5;
+  transition: var(--transition-smooth);
+}
+
+.btn-gold:hover {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  border-color: var(--color-gold-hover);
+}
+
+.btn-gold:hover::before {
+  transform: scale(1.05, 1.15);
+  opacity: 1;
+  border-color: var(--color-gold-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-gold);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-text-main);
+  color: var(--color-bg-warm);
+}
+
+.btn-dark {
+  background-color: var(--color-dark);
+  color: var(--color-bg-light);
+  border: 1px solid rgba(184, 138, 68, 0.3);
+}
+
+.btn-dark:hover {
+  background-color: var(--color-text-main);
+  border-color: var(--color-gold);
+}
+
+.btn-gold-solid {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-gold-solid:hover {
+  background-color: var(--color-gold-hover);
+}
+
+/* Dividers */
+.gold-divider-double {
+  border: none;
+  border-top: 3px double var(--color-gold);
+  height: 0;
+  margin: 24px 0;
+  width: 100%;
+}
+
+.gold-divider-single {
+  border: none;
+  border-top: 1px solid rgba(184, 138, 68, 0.3);
+  height: 0;
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Decorative Ornaments */
+.ornament-top, .ornament-bottom {
+  height: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 15px 0;
+  opacity: 0.7;
+}
+
+.ornament-top {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M 0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="%23B88A44" stroke-width="0.8"/><circle cx="50" cy="5" r="2" fill="%23B88A44"/></svg>');
+}
+
+.ornament-bottom {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M 0 5 Q 25 10, 50 5 T 100 5" fill="none" stroke="%23B88A44" stroke-width="0.8"/><circle cx="50" cy="5" r="2" fill="%23B88A44"/></svg>');
+}
+
+/* ==========================================================================
+   VIEW SECTIONS (Screen Management)
+   ========================================================================== */
+.view-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: var(--transition-smooth);
+}
+
+.view-section.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   STEP 1: WELCOME SCREEN
+   ========================================================================== */
+.welcome-card {
+  background-color: var(--color-bg-warm);
+  border: 1px solid var(--color-gold-light);
+  border-radius: 4px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: var(--shadow-premium);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wood frame feel */
+.welcome-card::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid rgba(184, 138, 68, 0.4);
+  pointer-events: none;
+}
+
+.welcome-intro {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.7;
+  color: var(--color-text-main);
+  margin-bottom: 24px;
+}
+
+.welcome-description {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #5A5040;
+  max-width: 580px;
+  margin: 0 auto 36px auto;
+  line-height: 1.8;
+}
+
+.instruction-box {
+  background-color: var(--color-bg-paper);
+  border: 1px solid rgba(184, 138, 68, 0.15);
+  border-radius: 2px;
+  padding: 24px 30px;
+  margin: 0 auto 40px auto;
+  max-width: 500px;
+  text-align: left;
+}
+
+.instruction-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+}
+
+.instruction-title::before {
+  content: '◆';
+  margin-right: 8px;
+  font-size: 0.8rem;
+}
+
+.instruction-box ul {
+  list-style: none;
+}
+
+.instruction-box li {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: var(--color-text-main);
+  position: relative;
+  padding-left: 14px;
+  line-height: 1.6;
+}
+
+.instruction-box li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  top: -2px;
+}
+
+.disclaimer-text {
+  font-size: 0.75rem;
+  color: #8C806E;
+  margin-top: 40px;
+  line-height: 1.5;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   STEP 2: SCANNER SCREEN (Webcam / Live Highlighting)
+   ========================================================================== */
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 4 / 3;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+  background-color: var(--color-dark);
+  border: 4px solid var(--color-bg-paper);
+}
+
+.video-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--color-gold);
+  z-index: 10;
+  pointer-events: none;
+}
+
+#webcam {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirror camera stream */
+}
+
+#overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  transform: scaleX(-1); /* Mirror drawings to match webcam */
+}
+
+/* Traditional Elegant Face Guide */
+.face-guide-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.face-guide-oval {
+  width: 240px;
+  height: 310px;
+  border: 1.5px dashed var(--color-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 9999px rgba(30, 26, 20, 0.65); /* Darken everything outside oval */
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.face-guide-oval::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1.5px solid var(--color-gold-light);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.guide-text {
+  color: var(--color-bg-light);
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-top: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.05em;
+  background-color: rgba(30, 26, 20, 0.8);
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(184, 138, 68, 0.3);
+}
+
+.face-guide-frame.aligned .face-guide-oval {
+  border-style: solid;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 20px var(--color-gold-glow), 0 0 0 9999px rgba(30, 26, 20, 0.4);
+}
+
+.face-guide-frame.aligned .guide-text {
+  color: var(--color-gold-light);
+  border-color: var(--color-gold);
+}
+
+/* Scanning Progress Display panel */
+.analyzer-panel {
+  width: 100%;
+  max-width: 560px;
+  background-color: var(--color-bg-warm);
+  border: 1px solid var(--color-gold-light);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  border-radius: 2px;
+}
+
+.current-step-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-gold-light);
+  border-radius: 2px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-gold);
+  transition: width 0.3s ease;
+}
+
+.scan-detail-msg {
+  font-size: 0.85rem;
+  color: #6C6050;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   STEP 3: SHUTTER SHOT
+   ========================================================================== */
+.shutter-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-white);
+  opacity: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.shutter-flash.flash-active {
+  animation: shutterFlash 0.6s cubic-bezier(0.1, 0.8, 0.1, 1);
+}
+
+@keyframes shutterFlash {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ==========================================================================
+   STEP 4: RESULTS & SCROLL CARD
+   ========================================================================== */
+.result-scroll-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Premium Traditional Scroll frame styling */
+.result-card {
+  background-color: var(--color-bg-warm);
+  border-radius: 4px;
+  box-shadow: var(--shadow-premium);
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  padding: 50px 36px;
+  overflow: hidden;
+  border: 1px solid var(--color-gold-light);
+}
+
+/* Gold borders */
+.royal-border {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid rgba(184, 138, 68, 0.3);
+  pointer-events: none;
+}
+
+.royal-border::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid var(--color-gold);
+  opacity: 0.8;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.stamp-deco {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(184, 138, 68, 0.4);
+  color: rgba(184, 138, 68, 0.5);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  border-radius: 2px;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(8deg);
+}
+
+.card-header {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.card-crown {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.card-main-title {
+  font-family: var(--font-korean);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-text-main);
+  margin-bottom: 2px;
+}
+
+.card-subtitle {
+  font-family: var(--font-royal), var(--font-korean);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+}
+
+/* Face Snapshot Frame */
+.face-snapshot-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.face-snapshot-frame {
+  width: 200px;
+  height: 250px;
+  border: 1px solid var(--color-gold);
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  background-color: var(--color-bg-paper);
+  box-shadow: 0 8px 24px rgba(42, 36, 27, 0.05);
+}
+
+#snapshot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid rgba(184, 138, 68, 0.25);
+  filter: sepia(0.1) contrast(1.05);
+}
+
+.snapshot-overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  background: linear-gradient(135deg, rgba(184,138,68,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Section label common style */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.analysis-section {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.matched-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag {
+  background-color: var(--color-bg-paper);
+  border: 1px solid rgba(184, 138, 68, 0.25);
+  color: var(--color-text-main);
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* Energies score grid */
+.energies-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  text-align: left;
+}
+
+@media (max-width: 500px) {
+  .energies-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.energy-column .energy-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(184, 138, 68, 0.15);
+}
+
+.energy-column.positive .energy-title {
+  color: var(--color-gold-hover);
+}
+
+.energy-column.warning .energy-title {
+  color: #7A6038;
+}
+
+.energy-list {
+  list-style: none;
+}
+
+.energy-list li {
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.energy-name {
+  color: var(--color-text-main);
+}
+
+.energy-stars {
+  color: var(--color-gold);
+  font-family: monospace;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+/* Review text section */
+.review-section {
+  text-align: left;
+}
+
+.review-box {
+  background-color: var(--color-bg-paper);
+  border-left: 2px solid var(--color-gold);
+  padding: 16px 20px;
+  position: relative;
+}
+
+.review-content {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #403627;
+  text-align: justify;
+}
+
+.signature {
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* Rationale details section */
+.details-section {
+  text-align: left;
+}
+
+.rationale-list {
+  list-style: none;
+  background-color: var(--color-bg-paper);
+  border: 1px solid rgba(184, 138, 68, 0.15);
+  padding: 16px 20px;
+  border-radius: 2px;
+}
+
+.rationale-list li {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: #5A5040;
+  margin-bottom: 10px;
+  padding-left: 12px;
+  position: relative;
+}
+
+.rationale-list li:last-child {
+  margin-bottom: 0;
+}
+
+.rationale-list li::before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+}
+
+.card-fineprint {
+  font-size: 0.7rem;
+  color: #8C806E;
+  text-align: center;
+  margin-top: 24px;
+  line-height: 1.4;
+}
+
+/* Recommendation Box (Elegant, Rolex/Hermès feel) */
+.recommendation-card {
+  background-color: var(--color-bg-warm);
+  border: 1px solid var(--color-gold-light);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+  padding: 36px 36px;
+  text-align: center;
+  box-shadow: var(--shadow-premium);
+  position: relative;
+}
+
+.recommendation-card::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid rgba(184, 138, 68, 0.2);
+  pointer-events: none;
+}
+
+.section-label.accent {
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.reco-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+
+.reco-desc {
+  font-size: 0.85rem;
+  color: #5A5040;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reco-product-showcase {
+  max-width: 320px;
+  margin: 0 auto 28px auto;
+  border: 1px solid rgba(184, 138, 68, 0.2);
+  padding: 10px;
+  background-color: var(--color-bg-paper);
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.reco-product-showcase img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.reco-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+@media (max-width: 450px) {
+  .reco-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .reco-actions .btn {
+    width: 100%;
+  }
+}
+
+.action-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+@media (max-width: 450px) {
+  .action-buttons-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.action-buttons-container .btn {
+  flex: 1;
+}
+
+.final-bottom-notes {
+  font-size: 0.75rem;
+  color: #8C806E;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   GLOBAL LOADER SPINNER (Overlay)
+   ========================================================================== */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(30, 26, 20, 0.93);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.loader-content {
+  text-align: center;
+  padding: 40px;
+  max-width: 420px;
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-ring {
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(184, 138, 68, 0.15);
+  border-top: 2px solid var(--color-gold);
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+  position: absolute;
+}
+
+.spinner-center {
+  font-size: 1.8rem;
+  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.loader-title {
+  color: var(--color-bg-light);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.loader-subtitle {
+  color: var(--color-gold-light);
+  font-size: 0.85rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   CAMERA ERROR OVERLAY & BUTTONS
+   ========================================================================== */
+.camera-error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 26, 20, 0.95);
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  color: var(--color-bg-light);
+}
+
+.camera-error-overlay.active {
+  display: flex;
+}
+
+.error-emblem {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.error-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-bottom: 8px;
+}
+
+.error-msg {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-gold-light);
+  margin-bottom: 20px;
+}
+
+.btn-sm {
+  padding: 10px 24px;
+  font-size: 0.85rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
