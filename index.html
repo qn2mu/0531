@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>왕이 될 상인가?</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="scanner-panel" aria-label="실시간 관상 분석기">
+        <div class="scanner-stage" id="scannerStage">
+          <video id="video" class="camera-feed" autoplay playsinline muted></video>
+          <canvas id="overlay" class="overlay-canvas"></canvas>
+          <div class="alignment-guide" aria-hidden="true">
+            <span class="guide-corner top-left"></span>
+            <span class="guide-corner top-right"></span>
+            <span class="guide-corner bottom-left"></span>
+            <span class="guide-corner bottom-right"></span>
+            <span class="face-oval"></span>
+          </div>
+          <div class="shutter" id="shutter"></div>
+          <div class="royal-seal" aria-hidden="true">王</div>
+        </div>
+
+        <aside class="control-panel" aria-label="분석 상태">
+          <div class="brand-lockup">
+            <span class="eyebrow">Royal Physiognomy Scanner</span>
+            <h1>왕이 될 상인가?</h1>
+            <p>
+              전통 관상학의 상징을 실시간 얼굴 스캐너로 체험하는 문화 콘텐츠입니다.
+            </p>
+          </div>
+
+          <div class="status-box" role="status" aria-live="polite">
+            <span class="status-dot" id="statusDot"></span>
+            <strong id="statusTitle">카메라 준비 중</strong>
+            <span id="statusText">브라우저의 카메라 접근을 허용해주세요.</span>
+          </div>
+
+          <div class="scan-meter" aria-label="분석 진행률">
+            <div class="scan-meter-fill" id="progressFill"></div>
+          </div>
+
+          <ol class="step-list" id="stepList">
+            <li data-part="eyes" class="active"><span>눈</span><small>눈 길이 측정 중</small></li>
+            <li data-part="brows"><span>눈썹</span><small>눈썹 흐름 분석 중</small></li>
+            <li data-part="nose"><span>코</span><small>코 비율 계산 중</small></li>
+            <li data-part="mouth"><span>입</span><small>입 윤곽 대조 중</small></li>
+            <li data-part="jaw"><span>턱</span><small>턱선 안정도 확인 중</small></li>
+            <li data-part="forehead"><span>이마</span><small>이마 비례 판독 중</small></li>
+          </ol>
+
+          <button class="primary-action" id="startButton" type="button">
+            관상 감정 시작
+          </button>
+
+          <div class="debug-panel">
+            <label class="debug-toggle">
+              <input id="debugToggle" type="checkbox" />
+              <span>디버그 모드</span>
+            </label>
+            <div class="debug-output" id="debugPanel" hidden>
+              <strong>측정 대기 중</strong>
+              <p>분석을 시작하면 얼굴 비율과 유형별 점수가 표시됩니다.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="analysis-grid" aria-label="부위별 관상 결과">
+        <article class="result-card placeholder" id="currentCard">
+          <span class="card-kicker">감정 대기</span>
+          <h2>얼굴을 정면으로 맞춰주세요</h2>
+          <p>
+            얼굴 인식이 완료되면 눈부터 이마까지 순서대로 관상 특징을 판독합니다.
+          </p>
+        </article>
+        <div class="part-results" id="partResults"></div>
+      </section>
+
+      <section class="final-report hidden" id="finalReport" aria-label="최종 감정서">
+        <div class="report-media">
+          <img id="captureImage" alt="분석 완료 시점의 얼굴 캡처" />
+        </div>
+        <div class="report-content">
+          <span class="card-kicker">최종 감정서</span>
+          <h2 id="finalTitle">왕의 상</h2>
+          <div class="final-score" id="finalScore">종합 점수 0점</div>
+          <p id="finalSummary"></p>
+          <div class="judgement-reasons">
+            <h3 id="reasonTitle">판정 이유</h3>
+            <ul id="finalReasons"></ul>
+          </div>
+          <div class="feature-tags" id="featureTags"></div>
+          <section class="product-recommendations" id="productRecommendations" hidden>
+            <span class="card-kicker">관상 보완 제안</span>
+            <h3>부족한 기운을 보완하기 위한 추천 제품</h3>
+            <div class="recommendation-list" id="recommendationList"></div>
+          </section>
+          <div class="report-columns">
+            <div>
+              <h3>장점으로 해석될 수 있는 부분</h3>
+              <ul id="finalStrengths"></ul>
+            </div>
+            <div>
+              <h3>주의해서 비칠 수 있는 부분</h3>
+              <ul id="finalCautions"></ul>
+            </div>
+          </div>
+          <button class="secondary-action" id="resetButton" type="button">다시 감정하기</button>
+        </div>
+      </section>
+
+      <p class="disclaimer">
+        이 서비스는 실제 성격, 능력, 지능, 성공 여부를 판단하지 않습니다. 전통 관상학의 상징을 현대적인 인터랙션으로 재해석한 오락 및 문화 콘텐츠입니다.
+      </p>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
